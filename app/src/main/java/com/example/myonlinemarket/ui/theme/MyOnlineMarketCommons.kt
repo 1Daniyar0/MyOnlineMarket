@@ -10,16 +10,19 @@ import androidx.compose.ui.unit.Dp
 
 data class Colors(
     val primaryText: Color,
-    val primaryBackground: Color,
     val secondaryText: Color,
+    val thirdText: Color,
+    val primaryBackground: Color,
     val secondaryBackground: Color,
-    val tintColor: Color
+    val accentColor: Color,
+    val secondaryAccentColor: Color,
+    val errorColor: Color
 )
 
 data class Typography(
     val heading: TextStyle,
     val body: TextStyle,
-    val toolbar: TextStyle
+    val description: TextStyle
 )
 
 data class MyShape(

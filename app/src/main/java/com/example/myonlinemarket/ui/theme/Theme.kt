@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun MyOnlineMarketTheme(
     textSize: Size = Size.Medium,
-    paddingSize: Size = Size.Medium,
     corners: Corners = Corners.Rounded,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
@@ -27,9 +26,9 @@ fun MyOnlineMarketTheme(
     val typography = Typography(
         heading = TextStyle(
             fontSize = when (textSize) {
-                Size.Small -> 24.sp
-                Size.Medium -> 28.sp
-                Size.Big -> 32.sp
+                Size.Small -> 18.sp
+                Size.Medium -> 20.sp
+                Size.Big -> 22.sp
             },
             fontWeight = FontWeight.Bold
         ),
@@ -41,11 +40,11 @@ fun MyOnlineMarketTheme(
             },
             fontWeight = FontWeight.Normal
         ),
-        toolbar = TextStyle(
+        description = TextStyle(
             fontSize = when (textSize) {
-                Size.Small -> 14.sp
-                Size.Medium -> 16.sp
-                Size.Big -> 18.sp
+                Size.Small -> 12.sp
+                Size.Medium -> 14.sp
+                Size.Big -> 16.sp
             },
             fontWeight = FontWeight.Medium
         )
