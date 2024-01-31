@@ -1,11 +1,16 @@
 package com.example.myonlinemarket.screens
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -16,16 +21,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myonlinemarket.R
@@ -38,14 +47,17 @@ fun RegistrationScreen(){
     var name by rememberSaveable { mutableStateOf("") }
     var surname by rememberSaveable { mutableStateOf("") }
 
-    Column {
-        RegistrationInputItem(
+    Column(
+        modifier = Modifier.fillMaxSize()
+            .padding(horizontal = MyOnlineMarketTheme.shapes.paddingBig)
+    ) {
+        RegistrationField(
             text = name,
             label = "Имя",
             format = "[А-Яа-яЁё]*",
             onTextChanged = {name = it},
             onClearText = {name = ""})
-        RegistrationInputItem(
+        RegistrationField(
             text = surname,
             label = "Фамилия",
             format = "[А-Яа-яЁё]*",
@@ -58,13 +70,56 @@ fun RegistrationScreen(){
             maskNumber = '0',
             onPhoneChanged = { phone = it },
             onClearText = {phone = ""})
+        SignUpButton({})
+        Box(modifier = Modifier.fillMaxSize()){
+            Column(modifier = Modifier
+                .align(Alignment.BottomCenter)){
+                Text(
+                    text = "Нажимая кнопку “Войти”, Вы принимаете",
+                    style = MyOnlineMarketTheme.typography.linkText,
+                    color = MyOnlineMarketTheme.colors.thirdText,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Text(
+                    text = "условия программы лояльности",
+                    style = MyOnlineMarketTheme.typography.linkLinedText,
+                    color = MyOnlineMarketTheme.colors.thirdText,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(bottom = 8.dp)
+                )
+            }
+
+        }
     }
 
 }
 
+
+@Composable
+fun SignUpButton(onClick: () -> Unit){
+    Button(
+        onClick = { onClick() },
+        content = {
+                  Text(text = "Войти",
+                      style = MyOnlineMarketTheme.typography.secondButtonText
+                  )
+        },
+        shape = MyOnlineMarketTheme.shapes.cornersStyle,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MyOnlineMarketTheme.colors.accentColor
+        ),
+        modifier = Modifier
+            .height(50.dp)
+            .fillMaxWidth())
+
+}
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegistrationInputItem(
+fun RegistrationField(
     text: String,
     label: String,
     format: String,
@@ -97,8 +152,11 @@ fun RegistrationInputItem(
     }
     TextField(
         value = text,
-        placeholder = { Text(text = label,
-            color = MyOnlineMarketTheme.colors.secondaryText) },
+        textStyle = MyOnlineMarketTheme.typography.placeHolderText,
+        placeholder = { Text(
+            text = label,
+            color = MyOnlineMarketTheme.colors.secondaryText,
+            style = MyOnlineMarketTheme.typography.placeHolderText) },
         onValueChange = {
             onTextChanged(it)
         },
@@ -142,6 +200,7 @@ fun PhoneField(
 
     TextField(
         value = phone,
+        textStyle = MyOnlineMarketTheme.typography.placeHolderText,
         onValueChange = { it ->
             onPhoneChanged(it.take(mask.count { it == maskNumber }))
         },
@@ -163,6 +222,7 @@ fun PhoneField(
         visualTransformation = PhoneVisualTransformation(mask, maskNumber),
         modifier = modifier.fillMaxWidth(),
     )
+    Spacer(modifier = Modifier.height(32.dp))
 }
 
 class PhoneVisualTransformation(val mask: String, val maskNumber: Char) : VisualTransformation {

@@ -5,7 +5,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -24,29 +26,76 @@ fun MyOnlineMarketTheme(
     }
 
     val typography = Typography(
-        heading = TextStyle(
-            fontSize = when (textSize) {
-                Size.Small -> 18.sp
-                Size.Medium -> 20.sp
-                Size.Big -> 22.sp
-            },
-            fontWeight = FontWeight.Bold
+        largeTitle = TextStyle(
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Medium,
+            fontFamily = sfProDisplayFamily
         ),
-        body = TextStyle(
-            fontSize = when (textSize) {
-                Size.Small -> 14.sp
-                Size.Medium -> 16.sp
-                Size.Big -> 18.sp
-            },
-            fontWeight = FontWeight.Normal
+         firstTitle = TextStyle(
+             fontSize = 16.sp,
+             fontWeight = FontWeight.Medium,
+             fontFamily = sfProDisplayFamily
+         ),
+        secondTitle = TextStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium,
+            fontFamily = sfProDisplayFamily
         ),
-        description = TextStyle(
-            fontSize = when (textSize) {
-                Size.Small -> 12.sp
-                Size.Medium -> 14.sp
-                Size.Big -> 16.sp
-            },
-            fontWeight = FontWeight.Medium
+        thirdTitle = TextStyle(
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium,
+            fontFamily = sfProDisplayFamily
+        ),
+        forthTitle = TextStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
+            fontFamily = sfProDisplayFamily
+        ),
+        firstText = TextStyle(
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Normal,
+            fontFamily = sfProDisplayFamily
+        ),
+        firstCaption = TextStyle(
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Normal,
+            fontFamily = sfProDisplayFamily
+        ),
+        firstButtonText = TextStyle(
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium,
+            fontFamily = sfProDisplayFamily
+        ),
+        secondButtonText = TextStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium,
+            fontFamily = sfProDisplayFamily
+        ),
+        elementText = TextStyle(
+            fontSize = 9.sp,
+            fontWeight = FontWeight.Normal,
+            fontFamily = sfProDisplayFamily
+        ),
+        priceText = TextStyle(
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Medium,
+            fontFamily = sfProDisplayFamily
+        ),
+        placeHolderText = TextStyle(
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Normal,
+            fontFamily = sfProDisplayFamily
+        ),
+        linkText = TextStyle(
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Normal,
+            fontFamily = sfProDisplayFamily,
+        ),
+        linkLinedText = TextStyle(
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Normal,
+            fontFamily = sfProDisplayFamily,
+            textDecoration = TextDecoration.Underline
         )
     )
 
@@ -60,6 +109,8 @@ fun MyOnlineMarketTheme(
             Corners.Rounded -> RoundedCornerShape(8.dp)
         }
     )
+
+
     CompositionLocalProvider(
         LocalColors provides colors,
         LocalShape provides shapes,

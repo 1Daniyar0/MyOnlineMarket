@@ -21,10 +21,9 @@ class MainActivity : ComponentActivity() {
             MyOnlineMarketTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize()
-                        .padding(MyOnlineMarketTheme.shapes.paddingMedium),
+                        .padding(MyOnlineMarketTheme.shapes.paddingBig),
                     color = MyOnlineMarketTheme.colors.primaryBackground
                 ) {
-                    Greeting("Android")
                     RegistrationScreen()
                 }
             }
@@ -44,6 +43,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     MyOnlineMarketTheme {
-        Greeting("Android")
+
     }
 }

@@ -5,7 +5,11 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
+import com.example.myonlinemarket.R
 
 
 data class Colors(
@@ -20,9 +24,20 @@ data class Colors(
 )
 
 data class Typography(
-    val heading: TextStyle,
-    val body: TextStyle,
-    val description: TextStyle
+    val largeTitle: TextStyle,
+    val firstTitle: TextStyle,
+    val secondTitle: TextStyle,
+    val thirdTitle: TextStyle,
+    val forthTitle: TextStyle,
+    val firstText: TextStyle,
+    val firstCaption: TextStyle,
+    val firstButtonText: TextStyle,
+    val secondButtonText: TextStyle,
+    val elementText: TextStyle,
+    val priceText: TextStyle,
+    val placeHolderText: TextStyle,
+    val linkText: TextStyle,
+    val linkLinedText: TextStyle
 )
 
 data class MyShape(
@@ -31,6 +46,11 @@ data class MyShape(
     val paddingBig: Dp,
     val paddingLarge: Dp,
     val cornersStyle: Shape,
+)
+
+val sfProDisplayFamily = FontFamily(
+    Font(R.font.sf_pro_display_regular, FontWeight.Normal),
+    Font(R.font.sf_pro_display_medium, FontWeight.Medium)
 )
 
 object MyOnlineMarketTheme {
