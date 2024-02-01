@@ -5,6 +5,8 @@ import com.example.data.remote.ApiService
 import com.example.data.repositoryImpl.RepositoryImpl
 import com.example.domain.repository.Repository
 import com.example.domain.usecase.AddUserToDatabaseUseCase
+import com.example.domain.usecase.CheckUserInDataBaseUseCase
+import com.example.myonlinemarket.constant.BASE_URL
 import com.example.myonlinemarket.viewModel.MarketViewModel
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
@@ -17,10 +19,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val useCaseModule = module{
     single { AddUserToDatabaseUseCase(get()) }
+    single { CheckUserInDataBaseUseCase(get()) }
 }
 
 val viewModelModule = module {
-    viewModel {MarketViewModel(get())}
+    viewModel {MarketViewModel(get(),get())}
 }
 
 val netModule = module{
@@ -53,7 +56,7 @@ private fun createOkHttpClient(): OkHttpClient {
 
 fun createRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-        .baseUrl("https://api.pokemontcg.io/")
+        .baseUrl(BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
