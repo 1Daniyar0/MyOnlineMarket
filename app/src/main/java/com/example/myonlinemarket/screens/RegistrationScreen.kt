@@ -1,5 +1,7 @@
 package com.example.myonlinemarket.screens
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,12 +15,16 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -37,40 +43,75 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.domain.models.User
 import com.example.myonlinemarket.R
 import com.example.myonlinemarket.ui.theme.MyOnlineMarketTheme
+import com.example.myonlinemarket.viewModel.MarketViewModel
+import org.koin.androidx.compose.koinViewModel
+import kotlin.math.log
 
 
 @Composable
-fun RegistrationScreen(){
+fun RegistrationScreen(viewModel: MarketViewModel = koinViewModel()){
     var phone by rememberSaveable { mutableStateOf("") }
     var name by rememberSaveable { mutableStateOf("") }
     var surname by rememberSaveable { mutableStateOf("") }
+    var isNameValid by remember {
+        mutableStateOf(false)
+    }
+    var isSurnameValid by remember{
+        mutableStateOf( false)
+    }
+    var isPhoneValid by remember{
+        mutableStateOf( false)
+    }
+
+    val userData = viewModel.userInDatabase.collectAsState()
+    if (userData.value != null){
+        Log.e(userData.value.toString(),userData.value.toString())
+    }
 
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .padding(horizontal = MyOnlineMarketTheme.shapes.paddingBig)
     ) {
         RegistrationField(
             text = name,
             label = "Имя",
             format = "[А-Яа-яЁё]*",
-            onTextChanged = {name = it},
-            onClearText = {name = ""})
+            onTextChanged = {
+                name = it
+                isNameValid = isValidText(name)},
+            onClearText = {
+                name = ""
+                isNameValid = isValidText(name)})
         RegistrationField(
             text = surname,
             label = "Фамилия",
             format = "[А-Яа-яЁё]*",
-            onTextChanged = {surname = it},
-            onClearText = {surname = ""})
+            onTextChanged = {
+                surname = it
+                isSurnameValid = isValidText(it)},
+            onClearText = {
+                surname = ""
+                isSurnameValid = isValidText(surname)})
         PhoneField(
             phone = phone,
             label ="Номер телефона",
             mask = "+7-000-000-00-00",
             maskNumber = '0',
-            onPhoneChanged = { phone = it },
-            onClearText = {phone = ""})
-        SignUpButton({})
+            onPhoneChanged = {
+                phone = it.filter{it.isDigit()}
+                isPhoneValid = phone.length < 16},
+            onClearText = {
+                phone = ""
+                isPhoneValid = false})
+        SignInButton(onClick = {
+            val user = User(name,surname,phone)
+            viewModel.addUserInDataBase(user) },
+            isNameValid && isSurnameValid && isPhoneValid
+        )
         Box(modifier = Modifier.fillMaxSize()){
             Column(modifier = Modifier
                 .align(Alignment.BottomCenter)){
@@ -86,7 +127,8 @@ fun RegistrationScreen(){
                     style = MyOnlineMarketTheme.typography.linkLinedText,
                     color = MyOnlineMarketTheme.colors.thirdText,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .padding(bottom = 8.dp)
                 )
             }
@@ -98,9 +140,10 @@ fun RegistrationScreen(){
 
 
 @Composable
-fun SignUpButton(onClick: () -> Unit){
+fun SignInButton(onClick: () -> Unit, clickable: Boolean){
     Button(
         onClick = { onClick() },
+        enabled = clickable,
         content = {
                   Text(text = "Войти",
                       style = MyOnlineMarketTheme.typography.secondButtonText
@@ -178,6 +221,10 @@ fun RegistrationField(
     Spacer(modifier = Modifier.height(16.dp))
 }
 
+fun isValidText(text: String):Boolean{
+    return text.matches(Regex("[А-Яа-яЁё]*")) && text.isNotEmpty()
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PhoneField(
@@ -206,6 +253,7 @@ fun PhoneField(
         },
         placeholder = {
             Text(text = label,
+                style = MyOnlineMarketTheme.typography.placeHolderText,
                 color = MyOnlineMarketTheme.colors.secondaryText)
         },
         trailingIcon = {
@@ -217,10 +265,13 @@ fun PhoneField(
                         onClearText()
                     })
             }},
-        colors = textFieldColors,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         visualTransformation = PhoneVisualTransformation(mask, maskNumber),
-        modifier = modifier.fillMaxWidth(),
+        shape = MyOnlineMarketTheme.shapes.cornersStyle,
+        colors = textFieldColors,
+        modifier = Modifier
+            .height(50.dp)
+            .fillMaxWidth(),
     )
     Spacer(modifier = Modifier.height(32.dp))
 }
@@ -281,7 +332,6 @@ private class PhoneOffsetMapper(val mask: String, val numberChar: Char) : Offset
     override fun transformedToOriginal(offset: Int): Int =
         offset - mask.take(offset).count { it != numberChar }
 }
-
 
 @Preview(showBackground = true)
 @Composable

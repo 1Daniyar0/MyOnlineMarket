@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.myonlinemarket.screens.RegistrationScreen
 import com.example.myonlinemarket.ui.theme.MyOnlineMarketTheme
+import com.example.myonlinemarket.viewModel.MarketViewModel
+import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,29 +22,15 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyOnlineMarketTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
                         .padding(MyOnlineMarketTheme.shapes.paddingBig),
                     color = MyOnlineMarketTheme.colors.primaryBackground
                 ) {
+
                     RegistrationScreen()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyOnlineMarketTheme {
-
     }
 }

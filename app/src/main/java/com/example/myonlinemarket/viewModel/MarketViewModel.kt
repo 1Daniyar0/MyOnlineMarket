@@ -21,6 +21,7 @@ class MarketViewModel(
         viewModelScope.launch {
             try {
                 addUserToDatabaseUseCase(user = user)
+                Log.e("Метод прошел","все четка")
             }catch(e: Exception) {
                 Log.e(ADDING_EXCEPTION, e.toString())
             }
