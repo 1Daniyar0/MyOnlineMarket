@@ -2,6 +2,7 @@ package com.example.data.repositoryImpl
 
 import com.example.data.models.UserDataModel
 import com.example.data.remote.ApiService
+import com.example.domain.models.ListProduct
 import com.example.domain.models.User
 import com.example.domain.repository.Repository
 import io.realm.kotlin.Realm
@@ -25,6 +26,10 @@ class RepositoryImpl(private val realm: Realm, private val api: ApiService): Rep
             realm.query<UserDataModel>()
                 .find()
         return itemUserPhone.isNotEmpty()
+    }
+
+    override suspend fun getListOfProduct(): ListProduct {
+        return api.getListOfProduct()
     }
 
 }
