@@ -103,7 +103,7 @@ fun RegistrationScreen(viewModel: MarketViewModel = koinViewModel()){
             maskNumber = '0',
             onPhoneChanged = {
                 phone = it.filter{it.isDigit()}
-                isPhoneValid = phone.length < 16},
+                isPhoneValid = phone.length == 10},
             onClearText = {
                 phone = ""
                 isPhoneValid = false})

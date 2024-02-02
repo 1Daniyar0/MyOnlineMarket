@@ -16,6 +16,7 @@ data class Colors(
     val primaryText: Color,
     val secondaryText: Color,
     val thirdText: Color,
+    val forthText: Color,
     val primaryBackground: Color,
     val secondaryBackground: Color,
     val accentColor: Color,
