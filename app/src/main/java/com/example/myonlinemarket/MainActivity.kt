@@ -13,6 +13,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -33,10 +34,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyOnlineMarketTheme {
-                val navController: NavHostController = rememberNavController()
-                var buttonsVisible = remember { mutableStateOf(true) }
+            val viewModel: MarketViewModel = koinViewModel()
+            viewModel.checkUserInDateBase()
+            val navController: NavHostController = rememberNavController()
+            val userIsInDataBase = viewModel.userInDatabase.collectAsState()
 
+            MyOnlineMarketTheme {
                 Scaffold(
                     modifier = Modifier
                         .fillMaxSize(),
@@ -45,15 +48,20 @@ class MainActivity : ComponentActivity() {
                         TopBar()
                     },
                     bottomBar = {
-                        BottomBar(
-                            navController = navController,
-                            state = buttonsVisible,
-                            modifier = Modifier.height(70.dp)
-                        )
+                        if (userIsInDataBase.value){
+                            BottomBar(
+                                navController = navController,
+                                state = true,
+                                modifier = Modifier.height(70.dp)
+                            )
+                        }
                     }) { paddingValues ->
                     Box(
                         modifier = Modifier.padding(paddingValues)
                     ) {
+                        if (!userIsInDataBase.value){
+                            RegistrationScreen()
+                        }
                         NavigationGraph(navController = navController)
                     }
                 }

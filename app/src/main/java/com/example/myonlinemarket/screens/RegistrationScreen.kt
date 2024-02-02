@@ -66,12 +66,6 @@ fun RegistrationScreen(viewModel: MarketViewModel = koinViewModel()){
         mutableStateOf( false)
     }
 
-    val userData = viewModel.userInDatabase.collectAsState()
-    if (userData.value != null){
-        Log.e(userData.value.toString(),userData.value.toString())
-    }
-
-
     Box(modifier = Modifier
         .fillMaxSize()
         .padding(horizontal = MyOnlineMarketTheme.shapes.paddingBig)){

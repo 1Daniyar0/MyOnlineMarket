@@ -4,5 +4,5 @@ import com.example.domain.models.User
 
 interface Repository{
     suspend fun addUserToDatabase(user: User)
-    suspend fun checkUserDataBase(user: User):Boolean
+    suspend fun checkUserDataBase():Boolean
 }

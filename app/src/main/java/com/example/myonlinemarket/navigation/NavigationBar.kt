@@ -25,7 +25,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun BottomBar(
-    navController: NavHostController, state: MutableState<Boolean>, modifier: Modifier
+    navController: NavHostController, state: Boolean, modifier: Modifier
 ) {
     val screens = listOf(
         Destinations.HomeScreen,

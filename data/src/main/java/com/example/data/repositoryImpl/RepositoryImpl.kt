@@ -20,9 +20,9 @@ class RepositoryImpl(private val realm: Realm, private val api: ApiService): Rep
             })
         }
     }
-    override suspend fun checkUserDataBase(user: User):Boolean{
+    override suspend fun checkUserDataBase():Boolean{
         val itemUserPhone: RealmResults<UserDataModel> =
-            realm.query<UserDataModel>("phone == $0", user.phone)
+            realm.query<UserDataModel>()
                 .find()
         return itemUserPhone.isNotEmpty()
     }

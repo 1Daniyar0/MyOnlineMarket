@@ -15,10 +15,10 @@ class MarketViewModel(
     private val addUserToDatabaseUseCase: AddUserToDatabaseUseCase,
     private val checkUserInDataBaseUseCase: CheckUserInDataBaseUseCase
 ):ViewModel() {
-    private val _userInDatabase: MutableStateFlow<Boolean?> = MutableStateFlow(null)
+    private val _userInDatabase: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val _currentScreen: MutableStateFlow<String> = MutableStateFlow("")
 
-    val userInDatabase: StateFlow<Boolean?> = _userInDatabase
+    val userInDatabase: StateFlow<Boolean> = _userInDatabase
     val currentScreen: StateFlow<String> = _currentScreen
     fun addUserInDataBase(user: User){
         viewModelScope.launch {
@@ -30,10 +30,10 @@ class MarketViewModel(
             }
         }
     }
-    fun checkUserInDateBase(user: User){
+    fun checkUserInDateBase(){
         viewModelScope.launch {
             try {
-                _userInDatabase.value = checkUserInDataBaseUseCase(user = user)
+                _userInDatabase.value = checkUserInDataBaseUseCase()
             }catch(e: Exception) {
                 Log.e(ADDING_EXCEPTION, e.toString())
             }
@@ -45,4 +45,5 @@ class MarketViewModel(
             _currentScreen.value = string
         }
     }
+
 }
