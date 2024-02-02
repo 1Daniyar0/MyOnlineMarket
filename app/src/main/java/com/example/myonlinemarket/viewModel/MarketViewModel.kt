@@ -16,7 +16,10 @@ class MarketViewModel(
     private val checkUserInDataBaseUseCase: CheckUserInDataBaseUseCase
 ):ViewModel() {
     private val _userInDatabase: MutableStateFlow<Boolean?> = MutableStateFlow(null)
+    private val _currentScreen: MutableStateFlow<String> = MutableStateFlow("")
+
     val userInDatabase: StateFlow<Boolean?> = _userInDatabase
+    val currentScreen: StateFlow<String> = _currentScreen
     fun addUserInDataBase(user: User){
         viewModelScope.launch {
             try {
@@ -34,6 +37,12 @@ class MarketViewModel(
             }catch(e: Exception) {
                 Log.e(ADDING_EXCEPTION, e.toString())
             }
+        }
+    }
+
+    fun addTopBarText(string: String){
+        viewModelScope.launch {
+            _currentScreen.value = string
         }
     }
 }

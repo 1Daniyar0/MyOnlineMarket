@@ -71,71 +71,72 @@ fun RegistrationScreen(viewModel: MarketViewModel = koinViewModel()){
         Log.e(userData.value.toString(),userData.value.toString())
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = MyOnlineMarketTheme.shapes.paddingBig)
-    ) {
-        RegistrationField(
-            text = name,
-            label = "Имя",
-            format = "[А-Яа-яЁё]*",
-            onTextChanged = {
-                name = it
-                isNameValid = isValidText(name)},
-            onClearText = {
-                name = ""
-                isNameValid = isValidText(name)})
-        RegistrationField(
-            text = surname,
-            label = "Фамилия",
-            format = "[А-Яа-яЁё]*",
-            onTextChanged = {
-                surname = it
-                isSurnameValid = isValidText(it)},
-            onClearText = {
-                surname = ""
-                isSurnameValid = isValidText(surname)})
-        PhoneField(
-            phone = phone,
-            label ="Номер телефона",
-            mask = "+7-000-000-00-00",
-            maskNumber = '0',
-            onPhoneChanged = {
-                phone = it.filter{it.isDigit()}
-                isPhoneValid = phone.length == 10},
-            onClearText = {
-                phone = ""
-                isPhoneValid = false})
-        SignInButton(onClick = {
-            val user = User(name,surname,phone)
-            viewModel.addUserInDataBase(user) },
-            isNameValid && isSurnameValid && isPhoneValid
-        )
-        Box(modifier = Modifier.fillMaxSize()){
-            Column(modifier = Modifier
-                .align(Alignment.BottomCenter)){
-                Text(
-                    text = "Нажимая кнопку “Войти”, Вы принимаете",
-                    style = MyOnlineMarketTheme.typography.linkText,
-                    color = MyOnlineMarketTheme.colors.thirdText,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Text(
-                    text = "условия программы лояльности",
-                    style = MyOnlineMarketTheme.typography.linkLinedText,
-                    color = MyOnlineMarketTheme.colors.thirdText,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp)
-                )
-            }
 
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .padding(horizontal = MyOnlineMarketTheme.shapes.paddingBig)){
+        Column(modifier = Modifier
+            .align(Alignment.Center)) {
+            RegistrationField(
+                text = name,
+                label = "Имя",
+                format = "[А-Яа-яЁё]*",
+                onTextChanged = {
+                    name = it
+                    isNameValid = isValidText(name)},
+                onClearText = {
+                    name = ""
+                    isNameValid = isValidText(name)})
+            RegistrationField(
+                text = surname,
+                label = "Фамилия",
+                format = "[А-Яа-яЁё]*",
+                onTextChanged = {
+                    surname = it
+                    isSurnameValid = isValidText(it)},
+                onClearText = {
+                    surname = ""
+                    isSurnameValid = isValidText(surname)})
+            PhoneField(
+                phone = phone,
+                label ="Номер телефона",
+                mask = "+7-000-000-00-00",
+                maskNumber = '0',
+                onPhoneChanged = {
+                    phone = it.filter{it.isDigit()}
+                    isPhoneValid = phone.length == 10},
+                onClearText = {
+                    phone = ""
+                    isPhoneValid = false})
+            SignInButton(onClick = {
+                val user = User(name,surname,phone)
+                viewModel.addUserInDataBase(user) },
+                isNameValid && isSurnameValid && isPhoneValid
+            )
+            Spacer(modifier = Modifier.height(200.dp))
         }
-    }
 
+        Column(modifier = Modifier
+            .align(Alignment.BottomCenter)){
+            Text(
+                text = "Нажимая кнопку “Войти”, Вы принимаете",
+                style = MyOnlineMarketTheme.typography.linkText,
+                color = MyOnlineMarketTheme.colors.thirdText,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Text(
+                text = "условия программы лояльности",
+                style = MyOnlineMarketTheme.typography.linkLinedText,
+                color = MyOnlineMarketTheme.colors.thirdText,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp)
+            )
+        }
+
+    }
 }
 
 
@@ -195,6 +196,7 @@ fun RegistrationField(
     }
     TextField(
         value = text,
+        singleLine = true,
         textStyle = MyOnlineMarketTheme.typography.placeHolderText,
         placeholder = { Text(
             text = label,
@@ -247,6 +249,7 @@ fun PhoneField(
 
     TextField(
         value = phone,
+        singleLine = true,
         textStyle = MyOnlineMarketTheme.typography.placeHolderText,
         onValueChange = { it ->
             onPhoneChanged(it.take(mask.count { it == maskNumber }))

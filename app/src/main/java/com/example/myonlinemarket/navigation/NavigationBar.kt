@@ -1,6 +1,5 @@
 package com.example.myonlinemarket.navigation
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -11,10 +10,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.imageResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -24,6 +20,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myonlinemarket.screens.RegistrationScreen
 import com.example.myonlinemarket.ui.theme.MyOnlineMarketTheme
+import com.example.myonlinemarket.viewModel.MarketViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun BottomBar(
@@ -80,22 +78,27 @@ fun BottomBar(
 }
 
 @Composable
-fun NavigationGraph(navController: NavHostController) {
+fun NavigationGraph(navController: NavHostController, viewModel: MarketViewModel = koinViewModel()) {
     NavHost(navController, startDestination = Destinations.HomeScreen.route) {
         composable(Destinations.HomeScreen.route) {
+            viewModel.addTopBarText("Главная")
             RegistrationScreen()
         }
         composable(Destinations.BasketScreen.route) {
+            viewModel.addTopBarText("Корзина")
             RegistrationScreen()
         }
         composable(Destinations.ProfileScreen.route) {
+            viewModel.addTopBarText("Профиль")
             RegistrationScreen()
         }
         composable(Destinations.CatalogScreen.route) {
+            viewModel.addTopBarText("Каталог")
             RegistrationScreen()
         }
         composable(Destinations.SaleScreen.route) {
-
+            viewModel.addTopBarText("Акции")
+            RegistrationScreen()
         }
 
     }

@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -15,12 +16,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.myonlinemarket.navigation.BottomBar
 import com.example.myonlinemarket.navigation.NavigationGraph
+import com.example.myonlinemarket.navigation.TopBar
 import com.example.myonlinemarket.screens.RegistrationScreen
 import com.example.myonlinemarket.ui.theme.MyOnlineMarketTheme
 import com.example.myonlinemarket.viewModel.MarketViewModel
@@ -32,19 +35,20 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyOnlineMarketTheme {
                 val navController: NavHostController = rememberNavController()
-                val bottomBarHeight = 70.dp
-                val bottomBarOffsetHeightPx = remember { mutableStateOf(0f) }
                 var buttonsVisible = remember { mutableStateOf(true) }
 
                 Scaffold(
                     modifier = Modifier
                         .fillMaxSize(),
                     containerColor = MyOnlineMarketTheme.colors.primaryBackground,
+                    topBar = {
+                        TopBar()
+                    },
                     bottomBar = {
                         BottomBar(
                             navController = navController,
                             state = buttonsVisible,
-                            modifier = Modifier.height(bottomBarHeight)
+                            modifier = Modifier.height(70.dp)
                         )
                     }) { paddingValues ->
                     Box(
