@@ -6,6 +6,7 @@ import com.example.data.repositoryImpl.RepositoryImpl
 import com.example.domain.repository.Repository
 import com.example.domain.usecase.AddUserToDatabaseUseCase
 import com.example.domain.usecase.CheckUserInDataBaseUseCase
+import com.example.domain.usecase.GetListOfProductUseCase
 import com.example.myonlinemarket.constant.BASE_URL
 import com.example.myonlinemarket.viewModel.MarketViewModel
 import io.realm.kotlin.Realm
@@ -20,10 +21,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 val useCaseModule = module{
     single { AddUserToDatabaseUseCase(get()) }
     single { CheckUserInDataBaseUseCase(get()) }
+    single { GetListOfProductUseCase(get()) }
 }
 
 val viewModelModule = module {
-    viewModel {MarketViewModel(get(),get())}
+    viewModel {MarketViewModel(get(),get(),get())}
 }
 
 val netModule = module{

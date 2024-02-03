@@ -72,8 +72,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     //Navigation
     implementation("androidx.navigation:navigation-compose:2.7.6")
-    //Coil
-    implementation("io.coil-kt:coil-compose:2.5.0")
     //ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata:2.6.2")
@@ -89,4 +87,7 @@ dependencies {
     implementation ("io.realm.kotlin:library-base:1.11.0")
     implementation ("io.realm.kotlin:library-sync:1.11.0")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    //ImageSlider
+    implementation ("com.google.accompanist:accompanist-pager:0.28.0")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.28.0")
 }

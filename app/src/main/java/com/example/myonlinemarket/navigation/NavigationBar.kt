@@ -18,6 +18,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.myonlinemarket.screens.CatalogScreen
 import com.example.myonlinemarket.screens.RegistrationScreen
 import com.example.myonlinemarket.ui.theme.MyOnlineMarketTheme
 import com.example.myonlinemarket.viewModel.MarketViewModel
@@ -94,7 +95,7 @@ fun NavigationGraph(navController: NavHostController, viewModel: MarketViewModel
         }
         composable(Destinations.CatalogScreen.route) {
             viewModel.addTopBarText("Каталог")
-            RegistrationScreen()
+            CatalogScreen()
         }
         composable(Destinations.SaleScreen.route) {
             viewModel.addTopBarText("Акции")
