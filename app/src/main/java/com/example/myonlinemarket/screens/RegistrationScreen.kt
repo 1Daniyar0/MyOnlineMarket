@@ -115,14 +115,14 @@ fun RegistrationScreen(viewModel: MarketViewModel = koinViewModel()){
             Text(
                 text = "Нажимая кнопку “Войти”, Вы принимаете",
                 style = MyOnlineMarketTheme.typography.linkText,
-                color = MyOnlineMarketTheme.colors.thirdText,
+                color = MyOnlineMarketTheme.colors.secondaryText,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
             Text(
                 text = "условия программы лояльности",
                 style = MyOnlineMarketTheme.typography.linkLinedText,
-                color = MyOnlineMarketTheme.colors.thirdText,
+                color = MyOnlineMarketTheme.colors.secondaryText,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()

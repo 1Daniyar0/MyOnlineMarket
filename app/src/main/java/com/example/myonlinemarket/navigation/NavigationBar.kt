@@ -68,9 +68,9 @@ fun BottomBar(
                 },
                 colors = NavigationBarItemDefaults.colors(
                     selectedTextColor = MyOnlineMarketTheme.colors.accentColor,
-                    unselectedTextColor = MyOnlineMarketTheme.colors.forthText,
+                    unselectedTextColor = MyOnlineMarketTheme.colors.thirdText,
                     selectedIconColor = MyOnlineMarketTheme.colors.accentColor,
-                    unselectedIconColor = MyOnlineMarketTheme.colors.forthText,
+                    unselectedIconColor = MyOnlineMarketTheme.colors.thirdText,
                     indicatorColor = Color.White
                 ),
             )

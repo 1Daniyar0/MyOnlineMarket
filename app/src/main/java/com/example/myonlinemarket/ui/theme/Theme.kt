@@ -100,6 +100,7 @@ fun MyOnlineMarketTheme(
     )
 
     val shapes = MyShape(
+        paddingMini = 6.dp,
         paddingSmall = 8.dp,
         paddingMedium = 12.dp,
         paddingBig =  16.dp,

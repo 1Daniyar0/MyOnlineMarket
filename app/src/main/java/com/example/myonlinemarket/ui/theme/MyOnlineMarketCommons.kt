@@ -16,11 +16,11 @@ data class Colors(
     val primaryText: Color,
     val secondaryText: Color,
     val thirdText: Color,
-    val forthText: Color,
     val primaryBackground: Color,
     val secondaryBackground: Color,
     val accentColor: Color,
     val secondaryAccentColor: Color,
+    val orangeColor: Color,
     val errorColor: Color
 )
 
@@ -42,6 +42,7 @@ data class Typography(
 )
 
 data class MyShape(
+    val paddingMini: Dp,
     val paddingSmall: Dp,
     val paddingMedium: Dp,
     val paddingBig: Dp,

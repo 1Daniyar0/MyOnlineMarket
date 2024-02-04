@@ -11,50 +11,50 @@ data class ListProduct(
 
 data class Product (
     @SerializedName("id")
-    var id: String? = null,
+    var id: String,
     @SerializedName("title")
-    var title: String? = null,
+    var title: String,
     @SerializedName("subtitle")
-    var subtitle: String? = null,
+    var subtitle: String,
     @SerializedName("price")
-    var price: Price? = Price(),
+    var price: Price,
     @SerializedName("feedback")
-    var feedback: Feedback? = Feedback(),
+    var feedback: Feedback,
     @SerializedName("tags")
     var tags: ArrayList<String> = arrayListOf(),
     @SerializedName("available")
-    var available: Int? = null,
+    var available: Int,
     @SerializedName("description")
-    var description: String? = null,
+    var description: String,
     @SerializedName("info")
     var info: ArrayList<Info> = arrayListOf(),
     @SerializedName("ingredients" )
-    var ingredients: String? = null
+    var ingredients: String?
 )
 
 data class Info (
     @SerializedName("title")
-    var title: String? = null,
+    var title: String,
     @SerializedName("value")
-    var value: String? = null
+    var value: String
 )
 
 data class Feedback (
     @SerializedName("count")
-    var count  : Int?    = null,
+    var count  : Int,
     @SerializedName("rating")
-    var rating : Double? = null
+    var rating : Double
 )
 
 data class Price (
     @SerializedName("price")
-    var price: String? = null,
+    var price: String,
     @SerializedName("discount")
-    var discount: Int? = null,
+    var discount: Int,
     @SerializedName("priceWithDiscount")
-    var priceWithDiscount : String? = null,
+    var priceWithDiscount : String,
     @SerializedName("unit")
-    var unit: String? = null
+    var unit: String
 
 )
 
