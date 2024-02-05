@@ -12,4 +12,5 @@ interface Repository{
     suspend fun deleteProductFromDataBase(product: Product)
     suspend fun getListProductFromDataBase():ArrayList<Product>
     suspend fun getIdProductFavoritesInDb():ArrayList<String>
+    suspend fun getUserFromDb():User
 }

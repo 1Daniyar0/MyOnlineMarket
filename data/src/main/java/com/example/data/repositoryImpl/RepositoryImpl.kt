@@ -125,5 +125,15 @@ class RepositoryImpl(private val realm: Realm, private val api: ApiService): Rep
         return listId
     }
 
+    override suspend fun getUserFromDb(): User {
+        val user = realm.query<UserDataModel>()
+                .find().first()
+        return User(
+            name = user.name,
+            surname = user.surname,
+            phone = user.phone
+        )
+    }
+
 
 }

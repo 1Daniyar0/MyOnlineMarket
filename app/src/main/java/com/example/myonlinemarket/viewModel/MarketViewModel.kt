@@ -13,6 +13,7 @@ import com.example.domain.usecase.CheckUserInDataBaseUseCase
 import com.example.domain.usecase.DeleteProductFavoritesDbUseCase
 import com.example.domain.usecase.GetListOfProductUseCase
 import com.example.domain.usecase.GetProductListFavoritesUseCase
+import com.example.domain.usecase.GetUserFromDbUseCase
 import com.example.myonlinemarket.constant.ADDING_EXCEPTION
 import com.example.myonlinemarket.constant.CHECK_EXCEPTION
 import com.example.myonlinemarket.constant.DELETE_DB_EXCEPTION
@@ -29,7 +30,8 @@ class MarketViewModel(
     private val getProductListFavoritesUseCase: GetProductListFavoritesUseCase,
     private val deleteProductFavoritesDbUseCase: DeleteProductFavoritesDbUseCase,
     private val addProductFavoritesDbUseCase: AddProductFavoritesDbUseCase,
-    private val getIdsProductsFavoritesInDbUseCase: GetIdsProductsFavoritesInDbUseCase
+    private val getIdsProductsFavoritesInDbUseCase: GetIdsProductsFavoritesInDbUseCase,
+    private val getUserFromDbUseCase: GetUserFromDbUseCase
 ):ViewModel() {
     private val _userInDatabase: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val _selectedProduct: MutableStateFlow<Product> = MutableStateFlow(Product())
@@ -37,12 +39,14 @@ class MarketViewModel(
     private val _currentScreen: MutableStateFlow<String> = MutableStateFlow("")
     private val _listOfProduct: MutableStateFlow<ListProduct> = MutableStateFlow(ListProduct())
     private val _listOfFavorites: MutableStateFlow<ArrayList<Product>> = MutableStateFlow(arrayListOf())
+    private val _userFromDb: MutableStateFlow<User> = MutableStateFlow(User("","",""))
 
     val selectedProduct: StateFlow<Product> = _selectedProduct
     val userInDatabase: StateFlow<Boolean> = _userInDatabase
     val listOfIdFavorites: StateFlow<ArrayList<String>> = _listOfIdFavorites
     val currentScreen: StateFlow<String> = _currentScreen
     val listOfProduct: StateFlow<ListProduct> = _listOfProduct
+    val userFromDb: StateFlow<User> = _userFromDb
 
     fun selectProduct(product: Product){
         _selectedProduct.value = product
@@ -121,7 +125,18 @@ class MarketViewModel(
                 val result = getIdsProductsFavoritesInDbUseCase.invoke()
                 _listOfIdFavorites.value = result
             }catch(e: Exception) {
-                Log.e(CHECK_EXCEPTION, e.toString())
+                Log.e(GET_DB_EXCEPTION, e.toString())
+            }
+        }
+    }
+
+    fun getUserFroDb(){
+        viewModelScope.launch {
+            try {
+                val result = getUserFromDbUseCase.invoke()
+                _userFromDb.value = result
+            }catch(e: Exception) {
+                Log.e(GET_DB_EXCEPTION, e.toString())
             }
         }
     }

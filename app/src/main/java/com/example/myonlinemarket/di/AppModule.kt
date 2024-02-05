@@ -15,6 +15,7 @@ import com.example.domain.usecase.CheckUserInDataBaseUseCase
 import com.example.domain.usecase.DeleteProductFavoritesDbUseCase
 import com.example.domain.usecase.GetListOfProductUseCase
 import com.example.domain.usecase.GetProductListFavoritesUseCase
+import com.example.domain.usecase.GetUserFromDbUseCase
 import com.example.myonlinemarket.constant.BASE_URL
 import com.example.myonlinemarket.viewModel.MarketViewModel
 import io.realm.kotlin.Realm
@@ -34,10 +35,11 @@ val useCaseModule = module{
     single { DeleteProductFavoritesDbUseCase(get()) }
     single { AddProductFavoritesDbUseCase(get()) }
     single { GetIdsProductsFavoritesInDbUseCase(get()) }
+    single { GetUserFromDbUseCase(get()) }
 }
 
 val viewModelModule = module {
-    viewModel {MarketViewModel(get(),get(),get(),get(),get(),get(),get())}
+    viewModel {MarketViewModel(get(),get(),get(),get(),get(),get(),get(),get())}
 }
 
 val netModule = module{

@@ -1,5 +1,6 @@
 package com.example.myonlinemarket.navigation
 
+import androidx.compose.foundation.Image
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -10,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -17,12 +19,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.myonlinemarket.screens.ProductPage
+import com.example.myonlinemarket.R
+import com.example.myonlinemarket.screens.product_page_screen.ProductPage
 import com.example.myonlinemarket.screens.catalog_screen.CatalogScreen
-import com.example.myonlinemarket.screens.RegistrationScreen
+import com.example.myonlinemarket.screens.profile_screen.ProfileScreen
+import com.example.myonlinemarket.screens.registration_screen.RegistrationScreen
 import com.example.myonlinemarket.ui.theme.MyOnlineMarketTheme
 import com.example.myonlinemarket.viewModel.MarketViewModel
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun BottomBar(
@@ -35,14 +38,12 @@ fun BottomBar(
         Destinations.SaleScreen,
         Destinations.ProfileScreen,
     )
-
     NavigationBar(
         modifier = modifier,
         containerColor = MyOnlineMarketTheme.colors.primaryBackground,
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
-
         screens.forEach { screen ->
 
             NavigationBarItem(
@@ -91,7 +92,7 @@ fun NavigationGraph(navController: NavHostController, viewModel: MarketViewModel
         }
         composable(Destinations.ProfileScreen.route) {
             viewModel.addTopBarText("Профиль")
-            RegistrationScreen()
+            ProfileScreen(navController,viewModel)
         }
         composable(Destinations.CatalogScreen.route) {
             viewModel.addTopBarText("Каталог")
@@ -102,7 +103,7 @@ fun NavigationGraph(navController: NavHostController, viewModel: MarketViewModel
             RegistrationScreen()
         }
         composable("product_page_screen") {
-            viewModel.addTopBarText("")
+            viewModel.addTopBarText("product_page")
             ProductPage(viewModel)
         }
 

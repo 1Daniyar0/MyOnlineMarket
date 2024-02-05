@@ -1,4 +1,4 @@
-package com.example.myonlinemarket.screens
+package com.example.myonlinemarket.screens.product_page_screen
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

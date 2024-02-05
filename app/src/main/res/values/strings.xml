@@ -8,4 +8,10 @@
     <string name="Сharacteristics">Характеристики</string>
     <string name="compound">Состав</string>
     <string name="add_product">Добавить в корзину</string>
+    <string name="favorites">Избранное</string>
+    <string name="Mall">Магазины</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="document">Оферта</string>
+    <string name="returns">Возврат товара</string>
+    <string name="exit">Выйти</string>
 </resources>
