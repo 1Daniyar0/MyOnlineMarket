@@ -6,7 +6,6 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,7 +17,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.myonlinemarket.screens.CatalogScreen
+import com.example.myonlinemarket.screens.catalog_screen.CatalogScreen
 import com.example.myonlinemarket.screens.RegistrationScreen
 import com.example.myonlinemarket.ui.theme.MyOnlineMarketTheme
 import com.example.myonlinemarket.viewModel.MarketViewModel

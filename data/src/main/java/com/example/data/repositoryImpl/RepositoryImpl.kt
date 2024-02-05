@@ -114,4 +114,16 @@ class RepositoryImpl(private val realm: Realm, private val api: ApiService): Rep
         return  favoritesList
     }
 
+    override suspend fun getIdProductFavoritesInDb(): ArrayList<String> {
+        val favoriteProduct: RealmResults<ProductDataModel> =
+            realm.query<ProductDataModel>()
+                .find()
+        val listId = arrayListOf<String>()
+        favoriteProduct.forEach {
+            listId.add(it.id!!)
+        }
+        return listId
+    }
+
+
 }

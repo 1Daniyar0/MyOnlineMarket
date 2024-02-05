@@ -1,11 +1,16 @@
 package com.example.myonlinemarket.di
 
+import com.example.data.data_models.FeedbackData
+import com.example.data.data_models.InfoData
+import com.example.data.data_models.PriceData
+import com.example.data.data_models.ProductDataModel
 import com.example.data.data_models.UserDataModel
 import com.example.data.remote.ApiService
 import com.example.data.repositoryImpl.RepositoryImpl
 import com.example.domain.repository.Repository
 import com.example.domain.usecase.AddProductFavoritesDbUseCase
 import com.example.domain.usecase.AddUserToDatabaseUseCase
+import com.example.domain.usecase.GetIdsProductsFavoritesInDbUseCase
 import com.example.domain.usecase.CheckUserInDataBaseUseCase
 import com.example.domain.usecase.DeleteProductFavoritesDbUseCase
 import com.example.domain.usecase.GetListOfProductUseCase
@@ -28,10 +33,11 @@ val useCaseModule = module{
     single { GetProductListFavoritesUseCase(get()) }
     single { DeleteProductFavoritesDbUseCase(get()) }
     single { AddProductFavoritesDbUseCase(get()) }
+    single { GetIdsProductsFavoritesInDbUseCase(get()) }
 }
 
 val viewModelModule = module {
-    viewModel {MarketViewModel(get(),get(),get(),get(),get(),get(),)}
+    viewModel {MarketViewModel(get(),get(),get(),get(),get(),get(),get())}
 }
 
 val netModule = module{
@@ -41,7 +47,12 @@ val netModule = module{
 }
 
 val dataBaseModule = module{
-    val config = RealmConfiguration.create(schema = setOf(UserDataModel::class))
+    val config = RealmConfiguration.create(schema = setOf(
+        UserDataModel::class,
+        ProductDataModel::class,
+        InfoData::class,
+        PriceData::class,
+        FeedbackData::class))
     val realm: Realm = Realm.open(config)
     single<Realm> {realm}
 }
