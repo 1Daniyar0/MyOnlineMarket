@@ -11,6 +11,7 @@ import com.example.domain.usecase.AddUserToDatabaseUseCase
 import com.example.domain.usecase.GetIdsProductsFavoritesInDbUseCase
 import com.example.domain.usecase.CheckUserInDataBaseUseCase
 import com.example.domain.usecase.DeleteProductFavoritesDbUseCase
+import com.example.domain.usecase.DeleteUserFromDbUseCase
 import com.example.domain.usecase.GetListOfProductUseCase
 import com.example.domain.usecase.GetProductListFavoritesUseCase
 import com.example.domain.usecase.GetUserFromDbUseCase
@@ -31,7 +32,8 @@ class MarketViewModel(
     private val deleteProductFavoritesDbUseCase: DeleteProductFavoritesDbUseCase,
     private val addProductFavoritesDbUseCase: AddProductFavoritesDbUseCase,
     private val getIdsProductsFavoritesInDbUseCase: GetIdsProductsFavoritesInDbUseCase,
-    private val getUserFromDbUseCase: GetUserFromDbUseCase
+    private val getUserFromDbUseCase: GetUserFromDbUseCase,
+    private val deleteUserFromDbUseCase: DeleteUserFromDbUseCase
 ):ViewModel() {
     private val _userInDatabase: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val _selectedProduct: MutableStateFlow<Product> = MutableStateFlow(Product())
@@ -137,6 +139,16 @@ class MarketViewModel(
                 _userFromDb.value = result
             }catch(e: Exception) {
                 Log.e(GET_DB_EXCEPTION, e.toString())
+            }
+        }
+    }
+
+    fun deleteUserFroDb(){
+        viewModelScope.launch {
+            try {
+                deleteUserFromDbUseCase.invoke()
+            }catch(e: Exception) {
+                Log.e(DELETE_DB_EXCEPTION, e.toString())
             }
         }
     }

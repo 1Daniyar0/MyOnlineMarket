@@ -1,10 +1,12 @@
 package com.example.myonlinemarket.navigation
 
 import com.example.myonlinemarket.R
+import com.example.myonlinemarket.screens.product_page_screen.ProductPage
+import com.example.myonlinemarket.screens.registration_screen.RegistrationScreen
 
 sealed class Destinations(
     val route: String,
-    val title: String? = null,
+    val title: String = "",
     val icon: Int? = null
 ) {
     object HomeScreen : Destinations(
@@ -35,6 +37,18 @@ sealed class Destinations(
         route = "profile_screen",
         title = "Профиль",
         icon = R.drawable.profile
+    )
+    object FavoritesScreen : Destinations(
+        route = "favorites_screen",
+        title = "Избранное"
+    )
+    object RegistrationScreen : Destinations(
+        route = "registration_screen",
+        title = "Вход"
+    )
+    object ProductPageScreen : Destinations(
+        route = "product_page_screen",
+        title = "product_page"
     )
 
 }

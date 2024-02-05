@@ -135,5 +135,15 @@ class RepositoryImpl(private val realm: Realm, private val api: ApiService): Rep
         )
     }
 
+    override suspend fun deleteUserFromDb() {
+        val favoriteProduct = realm.query<UserDataModel>().find().firstOrNull()
+        realm.writeBlocking {
+            if (favoriteProduct != null) {
+                findLatest(favoriteProduct)
+                    ?.also { delete(it) }
+            }
+        }
+    }
+
 
 }

@@ -1,6 +1,5 @@
 package com.example.myonlinemarket.navigation
 
-import androidx.compose.foundation.Image
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -11,7 +10,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -19,9 +17,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.myonlinemarket.R
 import com.example.myonlinemarket.screens.product_page_screen.ProductPage
 import com.example.myonlinemarket.screens.catalog_screen.CatalogScreen
+import com.example.myonlinemarket.screens.empty_screens.BasketScreen
+import com.example.myonlinemarket.screens.empty_screens.HomeScreen
+import com.example.myonlinemarket.screens.empty_screens.SaleScreen
 import com.example.myonlinemarket.screens.profile_screen.ProfileScreen
 import com.example.myonlinemarket.screens.registration_screen.RegistrationScreen
 import com.example.myonlinemarket.ui.theme.MyOnlineMarketTheme
@@ -83,27 +83,36 @@ fun BottomBar(
 fun NavigationGraph(navController: NavHostController, viewModel: MarketViewModel) {
     NavHost(navController, startDestination = Destinations.HomeScreen.route) {
         composable(Destinations.HomeScreen.route) {
-            viewModel.addTopBarText("Главная")
-            RegistrationScreen()
+            viewModel.addTopBarText(Destinations.HomeScreen.title)
+            HomeScreen()
         }
         composable(Destinations.BasketScreen.route) {
-            viewModel.addTopBarText("Корзина")
-            RegistrationScreen()
+            viewModel.addTopBarText(Destinations.BasketScreen.title)
+            BasketScreen()
         }
         composable(Destinations.ProfileScreen.route) {
-            viewModel.addTopBarText("Профиль")
+            viewModel.addTopBarText(Destinations.ProfileScreen.title)
             ProfileScreen(navController,viewModel)
         }
         composable(Destinations.CatalogScreen.route) {
-            viewModel.addTopBarText("Каталог")
+            viewModel.addTopBarText(Destinations.CatalogScreen.title)
             CatalogScreen(navController,viewModel)
         }
         composable(Destinations.SaleScreen.route) {
-            viewModel.addTopBarText("Акции")
-            RegistrationScreen()
+            viewModel.addTopBarText(Destinations.SaleScreen.title)
+            SaleScreen()
         }
-        composable("product_page_screen") {
-            viewModel.addTopBarText("product_page")
+        composable(Destinations.RegistrationScreen.route) {
+            viewModel.addTopBarText(Destinations.RegistrationScreen.title)
+            viewModel.checkUserInDateBase()
+            RegistrationScreen(navController,viewModel)
+        }
+        composable(Destinations.ProductPageScreen.route) {
+            viewModel.addTopBarText(Destinations.ProductPageScreen.title)
+            ProductPage(viewModel)
+        }
+        composable(Destinations.FavoritesScreen.route) {
+            viewModel.addTopBarText(Destinations.FavoritesScreen.title)
             ProductPage(viewModel)
         }
 

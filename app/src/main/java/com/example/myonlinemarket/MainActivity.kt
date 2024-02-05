@@ -63,7 +63,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(paddingValues)
                     ) {
                         if (!userIsInDataBase.value){
-                            RegistrationScreen()
+                            RegistrationScreen(navController, viewModel)
                         }
                         NavigationGraph(navController = navController, viewModel)
                     }

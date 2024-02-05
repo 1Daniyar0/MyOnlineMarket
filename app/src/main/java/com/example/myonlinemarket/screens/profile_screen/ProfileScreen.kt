@@ -90,8 +90,8 @@ fun ProfileScreen(navController: NavHostController,viewModel: MarketViewModel){
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 32.dp)
                 .clickable {
-                    viewModel.()
-                    navController.navigate("")
+                    viewModel.deleteUserFroDb()
+                    navController.navigate("registration_screen")
                 }
         ) {
             Text(
