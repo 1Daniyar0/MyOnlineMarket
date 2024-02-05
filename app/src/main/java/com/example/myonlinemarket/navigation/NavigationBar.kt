@@ -81,8 +81,8 @@ fun BottomBar(
 }
 
 @Composable
-fun NavigationGraph(navController: NavHostController, viewModel: MarketViewModel) {
-    NavHost(navController, startDestination = Destinations.HomeScreen.route) {
+fun NavigationGraph(navController: NavHostController, viewModel: MarketViewModel, startDestination: String) {
+    NavHost(navController, startDestination = startDestination) {
         composable(Destinations.HomeScreen.route) {
             viewModel.addTopBarText(Destinations.HomeScreen.title)
             HomeScreen()

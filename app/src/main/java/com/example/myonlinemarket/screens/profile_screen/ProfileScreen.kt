@@ -145,7 +145,7 @@ fun ProfileCard(
                         .align(Alignment.CenterVertically))
                 Box(
                     modifier = Modifier
-                        .height(35.dp)
+                        .height(38.dp)
                         .align(Alignment.CenterVertically)
                 ) {
                     Text(

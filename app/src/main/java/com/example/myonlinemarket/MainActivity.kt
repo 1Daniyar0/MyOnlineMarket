@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.myonlinemarket.navigation.BottomBar
+import com.example.myonlinemarket.navigation.Destinations
 import com.example.myonlinemarket.navigation.NavigationGraph
 import com.example.myonlinemarket.navigation.TopBar
 import com.example.myonlinemarket.screens.registration_screen.RegistrationScreen
@@ -75,10 +76,13 @@ class MainActivity : ComponentActivity() {
                     Box(
                         modifier = Modifier.padding(paddingValues)
                     ) {
-                        if (!userIsInDataBase){
-                            RegistrationScreen(navController, viewModel)
-                        }
-                        NavigationGraph(navController = navController, viewModel)
+                        NavigationGraph(
+                            navController = navController,
+                            viewModel = viewModel,
+                            startDestination = if (!userIsInDataBase) Destinations.RegistrationScreen.route
+                            else Destinations.CatalogScreen.route
+                        )
+
                     }
                 }
             }

@@ -149,7 +149,7 @@ fun SignInButton(onClick: () -> Unit, clickable: Boolean){
             containerColor = MyOnlineMarketTheme.colors.accentColor
         ),
         modifier = Modifier
-            .height(50.dp)
+            .height(55.dp)
             .fillMaxWidth())
 
 }
@@ -211,7 +211,7 @@ fun RegistrationField(
         shape = MyOnlineMarketTheme.shapes.cornersStyle,
         colors = textFieldColors,
         modifier = Modifier
-            .height(50.dp)
+            .height(55.dp)
             .fillMaxWidth()
     )
     Spacer(modifier = Modifier.height(16.dp))
@@ -267,7 +267,7 @@ fun PhoneField(
         shape = MyOnlineMarketTheme.shapes.cornersStyle,
         colors = textFieldColors,
         modifier = Modifier
-            .height(50.dp)
+            .height(55.dp)
             .fillMaxWidth(),
     )
     Spacer(modifier = Modifier.height(32.dp))
