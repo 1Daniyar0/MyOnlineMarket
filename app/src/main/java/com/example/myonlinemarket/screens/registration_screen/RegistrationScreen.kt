@@ -103,6 +103,7 @@ fun RegistrationScreen(navController: NavHostController, viewModel: MarketViewMo
             SignInButton(onClick = {
                 val user = User(name,surname,phone)
                 viewModel.addUserInDataBase(user)
+                viewModel.checkUserInDateBase()
                 navController.navigate(Destinations.CatalogScreen.route)},
                 clickable = isNameValid && isSurnameValid && isPhoneValid
             )
@@ -270,12 +271,4 @@ fun PhoneField(
             .fillMaxWidth(),
     )
     Spacer(modifier = Modifier.height(32.dp))
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyOnlineMarketTheme {
-
-    }
 }

@@ -15,6 +15,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -39,7 +43,10 @@ class MainActivity : ComponentActivity() {
             val selectedProduct = viewModel.selectedProduct.collectAsState()
 
             val navController: NavHostController = rememberNavController()
-            val userIsInDataBase = viewModel.userInDatabase.collectAsState()
+            val userIsInDataBaseState = viewModel.userInDatabase.collectAsState()
+            var userIsInDataBase by remember(userIsInDataBaseState.value) {
+                mutableStateOf(userIsInDataBaseState.value)
+            }
 
             MyOnlineMarketTheme {
                 Scaffold(
@@ -47,22 +54,28 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize(),
                     containerColor = MyOnlineMarketTheme.colors.primaryBackground,
                     topBar = {
-                        TopBar()
+                        TopBar(viewModel,navController)
                     },
                     bottomBar = {
-                        if (userIsInDataBase.value){
+                        if (userIsInDataBase){
                             BottomBar(
                                 navController = navController,
                                 state = true,
-                                modifier = Modifier.height(70.dp)
-                                    .border(BorderStroke(1.dp,MyOnlineMarketTheme.colors.secondaryBackground))
+                                modifier = Modifier
+                                    .height(70.dp)
+                                    .border(
+                                        BorderStroke(
+                                            1.dp,
+                                            MyOnlineMarketTheme.colors.secondaryBackground
+                                        )
+                                    )
                             )
                         }
                     }) { paddingValues ->
                     Box(
                         modifier = Modifier.padding(paddingValues)
                     ) {
-                        if (!userIsInDataBase.value){
+                        if (!userIsInDataBase){
                             RegistrationScreen(navController, viewModel)
                         }
                         NavigationGraph(navController = navController, viewModel)

@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.domain.models.User
 import com.example.myonlinemarket.R
+import com.example.myonlinemarket.navigation.Destinations
 import com.example.myonlinemarket.ui.theme.MyOnlineMarketTheme
 import com.example.myonlinemarket.viewModel.MarketViewModel
 
@@ -71,13 +72,15 @@ fun ProfileScreen(navController: NavHostController,viewModel: MarketViewModel){
                 titleText = user.value.name + " " + user.value.surname,
                 secondText = phoneFormat(user.value.phone),
                 titleIcon = painterResource(id = R.drawable.profile),
-                funcIcon = painterResource(id = R.drawable.exit))
+                funcIcon = painterResource(id = R.drawable.exit),
+                onClick = {})
             Spacer(modifier = Modifier.size(24.dp))
             ListOfCard(
                 titleText = listOfTitle,
                 secondText = listOfDescription,
                 titleIcon = listOfTitleIcon,
-                funcIcon = funcButton)
+                funcIcon = funcButton,
+                navController = navController)
         }
         Card(
             shape = RoundedCornerShape(8.dp),
@@ -106,13 +109,20 @@ fun ProfileScreen(navController: NavHostController,viewModel: MarketViewModel){
 }
 
 @Composable
-fun ProfileCard(titleText: String, secondText: String, titleIcon: Painter, funcIcon:Painter){
+fun ProfileCard(
+    titleText: String,
+    secondText: String,
+    titleIcon: Painter,
+    funcIcon:Painter,
+    onClick:() -> Unit
+){
     Card(
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = MyOnlineMarketTheme.colors.secondaryBackground
         ),
         modifier = Modifier
+            .clickable { onClick() }
             .fillMaxWidth()
             .height(50.dp)
     ) {
@@ -149,7 +159,7 @@ fun ProfileCard(titleText: String, secondText: String, titleIcon: Painter, funcI
                             ))
                     if (secondText.isNotEmpty()){
                         Text(
-                            text = phoneFormat(secondText),
+                            text = secondText,
                             style = MyOnlineMarketTheme.typography.firstCaption,
                             color = MyOnlineMarketTheme.colors.secondaryText,
                             modifier = Modifier
@@ -174,8 +184,9 @@ fun ListOfCard(
     titleText: ArrayList<String>,
     secondText: ArrayList<String>,
     titleIcon: ArrayList<Painter>,
-    funcIcon: Painter)
-{
+    funcIcon: Painter,
+    navController: NavHostController
+){
     LazyColumn(
         content = {
         itemsIndexed(titleText){index, item ->
@@ -183,7 +194,9 @@ fun ListOfCard(
                 titleText = titleText[index],
                 secondText = secondText[index],
                 titleIcon = titleIcon[index],
-                funcIcon = funcIcon)
+                funcIcon = funcIcon,
+                onClick = {if (index == 0) navController.navigate(Destinations.FavoritesScreen.route)}
+                )
             Spacer(modifier = Modifier.size(8.dp))
         }
     })
@@ -193,6 +206,7 @@ fun phoneFormat(phone: String): String {
     var newPhone = StringBuilder()
     phone.forEachIndexed{ index, c ->
         when(index){
+            0 -> newPhone.append("+7")
             2 -> newPhone.append(' ')
             5 -> newPhone.append(' ')
             8 -> newPhone.append('-')

@@ -22,6 +22,7 @@ import com.example.myonlinemarket.screens.catalog_screen.CatalogScreen
 import com.example.myonlinemarket.screens.empty_screens.BasketScreen
 import com.example.myonlinemarket.screens.empty_screens.HomeScreen
 import com.example.myonlinemarket.screens.empty_screens.SaleScreen
+import com.example.myonlinemarket.screens.favorites_screen.FavoritesScreen
 import com.example.myonlinemarket.screens.profile_screen.ProfileScreen
 import com.example.myonlinemarket.screens.registration_screen.RegistrationScreen
 import com.example.myonlinemarket.ui.theme.MyOnlineMarketTheme
@@ -113,7 +114,7 @@ fun NavigationGraph(navController: NavHostController, viewModel: MarketViewModel
         }
         composable(Destinations.FavoritesScreen.route) {
             viewModel.addTopBarText(Destinations.FavoritesScreen.title)
-            ProductPage(viewModel)
+            FavoritesScreen(viewModel,navController)
         }
 
     }

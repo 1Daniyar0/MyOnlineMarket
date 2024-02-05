@@ -40,12 +40,13 @@ class MarketViewModel(
     private val _listOfIdFavorites: MutableStateFlow<ArrayList<String>> = MutableStateFlow(arrayListOf())
     private val _currentScreen: MutableStateFlow<String> = MutableStateFlow("")
     private val _listOfProduct: MutableStateFlow<ListProduct> = MutableStateFlow(ListProduct())
-    private val _listOfFavorites: MutableStateFlow<ArrayList<Product>> = MutableStateFlow(arrayListOf())
+    private val _listOfFavoritesProduct: MutableStateFlow<ArrayList<Product>> = MutableStateFlow(arrayListOf())
     private val _userFromDb: MutableStateFlow<User> = MutableStateFlow(User("","",""))
 
     val selectedProduct: StateFlow<Product> = _selectedProduct
     val userInDatabase: StateFlow<Boolean> = _userInDatabase
     val listOfIdFavorites: StateFlow<ArrayList<String>> = _listOfIdFavorites
+    val listOfFavoritesProduct: StateFlow<ArrayList<Product>> = _listOfFavoritesProduct
     val currentScreen: StateFlow<String> = _currentScreen
     val listOfProduct: StateFlow<ListProduct> = _listOfProduct
     val userFromDb: StateFlow<User> = _userFromDb
@@ -94,7 +95,7 @@ class MarketViewModel(
         viewModelScope.launch {
             try {
                 val result = getProductListFavoritesUseCase.invoke()
-                _listOfFavorites.value = result
+                _listOfFavoritesProduct.value = result
             }catch(e: Exception) {
                 Log.e(GET_DB_EXCEPTION, e.toString())
             }

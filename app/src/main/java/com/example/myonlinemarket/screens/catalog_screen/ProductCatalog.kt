@@ -109,9 +109,11 @@ fun ProductItem(
                         if (isFavorite) {
                             viewModel.deleteFavoriteFromDb(product)
                             viewModel.getIdFavoriteProductDb()
+                            viewModel.getFavoritesListFromDb()
                         } else {
                             viewModel.addProductInFavorites(product)
                             viewModel.getIdFavoriteProductDb()
+                            viewModel.getFavoritesListFromDb()
                         }
                     })
         }

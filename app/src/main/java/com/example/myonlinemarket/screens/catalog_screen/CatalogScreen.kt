@@ -66,7 +66,6 @@ fun CatalogScreen(
     val listOfProduct = viewModel.listOfProduct.collectAsState()
     var sortingOption by remember { mutableStateOf(SortingOption.POPULARITY) }
     var tagsOption by remember { mutableStateOf("All") }
-    val isFavorites by remember { mutableStateOf(false) }
     Column(
         Modifier.padding(horizontal = MyOnlineMarketTheme.shapes.paddingBig)
     ) {
