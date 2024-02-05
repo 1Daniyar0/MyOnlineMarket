@@ -32,17 +32,21 @@ class MarketViewModel(
     private val getIdsProductsFavoritesInDbUseCase: GetIdsProductsFavoritesInDbUseCase
 ):ViewModel() {
     private val _userInDatabase: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val _selectedProduct: MutableStateFlow<Product> = MutableStateFlow(Product())
     private val _listOfIdFavorites: MutableStateFlow<ArrayList<String>> = MutableStateFlow(arrayListOf())
     private val _currentScreen: MutableStateFlow<String> = MutableStateFlow("")
     private val _listOfProduct: MutableStateFlow<ListProduct> = MutableStateFlow(ListProduct())
     private val _listOfFavorites: MutableStateFlow<ArrayList<Product>> = MutableStateFlow(arrayListOf())
 
+    val selectedProduct: StateFlow<Product> = _selectedProduct
     val userInDatabase: StateFlow<Boolean> = _userInDatabase
     val listOfIdFavorites: StateFlow<ArrayList<String>> = _listOfIdFavorites
     val currentScreen: StateFlow<String> = _currentScreen
     val listOfProduct: StateFlow<ListProduct> = _listOfProduct
-    val listOfFavorites: StateFlow<ArrayList<Product>> = _listOfFavorites
 
+    fun selectProduct(product: Product){
+        _selectedProduct.value = product
+    }
     fun addUserInDataBase(user: User){
         viewModelScope.launch {
             try {

@@ -40,6 +40,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.domain.models.Product
 import com.example.myonlinemarket.R
 import com.example.myonlinemarket.ui.theme.MyOnlineMarketTheme
@@ -56,7 +58,10 @@ enum class SortingOption {
 
 @SuppressLint("MutableCollectionMutableState")
 @Composable
-fun CatalogScreen(viewModel: MarketViewModel = koinViewModel()){
+fun CatalogScreen(
+    navController: NavHostController,
+    viewModel: MarketViewModel
+){
     viewModel.getListOfProduct()
     val listOfProduct = viewModel.listOfProduct.collectAsState()
     var sortingOption by remember { mutableStateOf(SortingOption.POPULARITY) }
@@ -71,7 +76,7 @@ fun CatalogScreen(viewModel: MarketViewModel = koinViewModel()){
         TagFilter(){
             tagsOption = it
         }
-        ProductCatalog(listOfProduct.value.items, sortingOption, tagsOption)
+        ProductCatalog(listOfProduct.value.items, sortingOption, tagsOption,navController,viewModel)
     }
 }
 

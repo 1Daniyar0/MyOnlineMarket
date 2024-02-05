@@ -4,4 +4,8 @@
     <string name="sort_price_high">По возрастанию цены</string>
     <string name="sort_price_low">По убыванию цены</string>
     <string name="filters">Фильтры</string>
+    <string name="Description">Описание</string>
+    <string name="Сharacteristics">Характеристики</string>
+    <string name="compound">Состав</string>
+    <string name="add_product">Добавить в корзину</string>
 </resources>

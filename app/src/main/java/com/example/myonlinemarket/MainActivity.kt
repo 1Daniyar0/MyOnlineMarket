@@ -1,8 +1,10 @@
 package com.example.myonlinemarket
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,6 +38,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             val viewModel: MarketViewModel = koinViewModel()
             viewModel.checkUserInDateBase()
+            val selectedProduct = viewModel.selectedProduct.collectAsState()
+
             val navController: NavHostController = rememberNavController()
             val userIsInDataBase = viewModel.userInDatabase.collectAsState()
 
@@ -53,6 +57,7 @@ class MainActivity : ComponentActivity() {
                                 navController = navController,
                                 state = true,
                                 modifier = Modifier.height(70.dp)
+                                    .clickable { Log.e("9849845",selectedProduct.value.toString()) }
                             )
                         }
                     }) { paddingValues ->
@@ -62,7 +67,7 @@ class MainActivity : ComponentActivity() {
                         if (!userIsInDataBase.value){
                             RegistrationScreen()
                         }
-                        NavigationGraph(navController = navController)
+                        NavigationGraph(navController = navController, viewModel)
                     }
                 }
             }

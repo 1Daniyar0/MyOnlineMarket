@@ -30,6 +30,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.domain.models.Product
 import com.example.myonlinemarket.R
 import com.example.myonlinemarket.screens.ProductPage
@@ -42,7 +45,9 @@ import org.koin.androidx.compose.koinViewModel
 fun ProductCatalog(
     products: ArrayList<Product>,
     sortingOption: SortingOption,
-    tagOption: String){
+    tagOption: String,
+    navController: NavHostController,
+    viewModel: MarketViewModel){
     val sortedProducts = remember(products,sortingOption,tagOption) {
         when(sortingOption){
             SortingOption.POPULARITY -> products.filter { it.tags.contains(tagOption) || tagOption == "All" }
@@ -58,20 +63,21 @@ fun ProductCatalog(
         columns = GridCells.Fixed(2),
         content = {
             itemsIndexed(sortedProducts){index, item ->
-                ProductItem(item)
+                ProductItem(item, navController = navController, viewModel = viewModel)
             }
         })
 }
 
 @Composable
-fun ProductItem(product: Product, viewModel: MarketViewModel = koinViewModel()){
+fun ProductItem(
+    product: Product,
+    viewModel: MarketViewModel,
+    navController: NavHostController
+){
     viewModel.getIdFavoriteProductDb()
     val isFavoritesState = viewModel.listOfIdFavorites.collectAsState()
     var isFavorite by remember(isFavoritesState.value) {
         mutableStateOf(isFavoritesState.value.contains(product.id))
-    }
-    var isPageOpen by remember {
-        mutableStateOf(false)
     }
 
     Card(
@@ -84,13 +90,18 @@ fun ProductItem(product: Product, viewModel: MarketViewModel = koinViewModel()){
             .padding(4.dp)
             .wrapContentSize()
             .clickable {
-                isPageOpen = true
+                viewModel.selectProduct(product)
+                navController.navigate("product_page_screen")
             }
     ) {
         Box(
             modifier = Modifier.height(144.dp)
         ){
-            ImageSlider(product)
+            ImageSlider(
+                product,
+                Modifier
+                    .wrapContentSize()
+                    .height(130.dp))
             Image(painter = painterResource(
                 id = if (isFavorite) R.drawable.favorite_heart
                     else R.drawable.favorite_empty ),

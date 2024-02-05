@@ -17,6 +17,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.myonlinemarket.screens.ProductPage
 import com.example.myonlinemarket.screens.catalog_screen.CatalogScreen
 import com.example.myonlinemarket.screens.RegistrationScreen
 import com.example.myonlinemarket.ui.theme.MyOnlineMarketTheme
@@ -78,7 +79,7 @@ fun BottomBar(
 }
 
 @Composable
-fun NavigationGraph(navController: NavHostController, viewModel: MarketViewModel = koinViewModel()) {
+fun NavigationGraph(navController: NavHostController, viewModel: MarketViewModel) {
     NavHost(navController, startDestination = Destinations.HomeScreen.route) {
         composable(Destinations.HomeScreen.route) {
             viewModel.addTopBarText("Главная")
@@ -94,11 +95,15 @@ fun NavigationGraph(navController: NavHostController, viewModel: MarketViewModel
         }
         composable(Destinations.CatalogScreen.route) {
             viewModel.addTopBarText("Каталог")
-            CatalogScreen()
+            CatalogScreen(navController,viewModel)
         }
         composable(Destinations.SaleScreen.route) {
             viewModel.addTopBarText("Акции")
             RegistrationScreen()
+        }
+        composable("product_page_screen") {
+            viewModel.addTopBarText("")
+            ProductPage(viewModel)
         }
 
     }

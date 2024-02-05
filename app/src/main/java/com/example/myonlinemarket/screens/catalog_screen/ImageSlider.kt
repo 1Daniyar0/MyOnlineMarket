@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -23,52 +24,73 @@ import com.google.accompanist.pager.rememberPagerState
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun ImageSlider(product: Product){
+fun ImageSlider(product: Product, modifier: Modifier){
     val pagerState = rememberPagerState(initialPage = 0)
-    val imageSlider = listOf(
+
+    val imageSlider = arrayListOf<Painter>()
+    imageSlider.addAll(
         when(product.id){
             "cbf0c984-7c6c-4ada-82da-e29dc698bb50" ->{
-                painterResource(id = R.drawable.product_6)
-                painterResource(id = R.drawable.product_5)
+                arrayListOf(
+                    painterResource(id = R.drawable.product_6),
+                    painterResource(id = R.drawable.product_5)
+                )
             }
             "54a876a5-2205-48ba-9498-cfecff4baa6e" ->{
-                painterResource(id = R.drawable.product_1)
-                painterResource(id = R.drawable.product_2)
+                arrayListOf(
+                    painterResource(id = R.drawable.product_1),
+                    painterResource(id = R.drawable.product_2)
+                )
             }
             "75c84407-52e1-4cce-a73a-ff2d3ac031b3" ->{
-                painterResource(id = R.drawable.product_5)
-                painterResource(id = R.drawable.product_6)
+                arrayListOf(
+                    painterResource(id = R.drawable.product_5),
+                    painterResource(id = R.drawable.product_6)
+                )
             }
             "16f88865-ae74-4b7c-9d85-b68334bb97db" ->{
-                painterResource(id = R.drawable.product_3)
-                painterResource(id = R.drawable.product_4)
+                arrayListOf(
+                    painterResource(id = R.drawable.product_3),
+                    painterResource(id = R.drawable.product_4)
+                )
             }
             "26f88856-ae74-4b7c-9d85-b68334bb97db" ->{
-                painterResource(id = R.drawable.product_2)
-                painterResource(id = R.drawable.product_3)
+                arrayListOf(
+                    painterResource(id = R.drawable.product_2),
+                    painterResource(id = R.drawable.product_3)
+                )
             }
             "15f88865-ae74-4b7c-9d81-b78334bb97db" ->{
-                painterResource(id = R.drawable.product_6)
-                painterResource(id = R.drawable.product_1)
+                arrayListOf(
+                    painterResource(id = R.drawable.product_6),
+                    painterResource(id = R.drawable.product_1)
+                )
             }
             "88f88865-ae74-4b7c-9d81-b78334bb97db" ->{
-                painterResource(id = R.drawable.product_4)
-                painterResource(id = R.drawable.product_3)
+                arrayListOf(
+                    painterResource(id = R.drawable.product_4),
+                    painterResource(id = R.drawable.product_3)
+                )
             }
             "55f58865-ae74-4b7c-9d81-b78334bb97db" ->{
-                painterResource(id = R.drawable.product_1)
-                painterResource(id = R.drawable.product_5)
+                arrayListOf(
+                    painterResource(id = R.drawable.product_1),
+                    painterResource(id = R.drawable.product_5)
+                )
             }
-            else -> painterResource(id = R.drawable.product_1)
+            else -> {
+                arrayListOf(
+                    painterResource(id = R.drawable.product_1),
+                    painterResource(id = R.drawable.product_2)
+                )
+            }
         }
     )
     Column {
         HorizontalPager(
             count = imageSlider.size,
             state = pagerState,
-            modifier = Modifier
-                .wrapContentSize()
-                .height(130.dp)
+            modifier = modifier
         ) { page ->
             Image(
                 painter = imageSlider[page],
@@ -77,7 +99,7 @@ fun ImageSlider(product: Product){
                 alignment = Alignment.Center,
                 modifier = Modifier
                     .wrapContentSize()
-                    .background(Color.White)
+                    .background(MyOnlineMarketTheme.colors.primaryBackground)
             )
         }
 
