@@ -6,7 +6,10 @@ import com.example.data.data_models.PriceData
 import com.example.data.data_models.ProductDataModel
 import com.example.data.data_models.UserDataModel
 import com.example.data.remote.ApiService
+import com.example.domain.models.Feedback
+import com.example.domain.models.Info
 import com.example.domain.models.ListProduct
+import com.example.domain.models.Price
 import com.example.domain.models.Product
 import com.example.domain.models.User
 import com.example.domain.repository.Repository
@@ -44,14 +47,14 @@ class RepositoryImpl(private val realm: Realm, private val api: ApiService): Rep
                 title = product.title
                 subtitle = product.subtitle
                 price = PriceData().apply {
-                    price = product.price.price
-                    discount = product.price.discount
-                    priceWithDiscount = product.price.priceWithDiscount
-                    unit = product.price.unit
+                    price = product.price?.price
+                    discount = product.price?.discount
+                    priceWithDiscount = product.price?.priceWithDiscount
+                    unit = product.price?.unit
                 }
                 feedback = FeedbackData().apply {
-                    count = product.feedback.count
-                    rating = product.feedback.rating
+                    count = product.feedback?.count
+                    rating = product.feedback?.rating
                 }
                 tags.addAll(product.tags)
                 available = product.available
@@ -67,11 +70,48 @@ class RepositoryImpl(private val realm: Realm, private val api: ApiService): Rep
     }
 
     override suspend fun deleteProductFromDataBase(product: Product) {
-        TODO("Not yet implemented")
+        val favoriteProduct = realm.query<ProductDataModel>("id == $0", product.id).find().firstOrNull()
+        realm.writeBlocking {
+            if (favoriteProduct != null) {
+                findLatest(favoriteProduct)
+                    ?.also { delete(it) }
+            }
+        }
     }
 
-    override suspend fun getProductFromDataBase() {
-        TODO("Not yet implemented")
+    override suspend fun getListProductFromDataBase():ArrayList<Product> {
+        val favoriteProduct = realm.query<ProductDataModel>().find()
+        val favoritesList = arrayListOf<Product>()
+        favoriteProduct.forEach {product ->
+            favoritesList.add(
+                Product(
+                    id = product.id,
+                    title = product.title,
+                    subtitle = product.subtitle,
+                    price = Price(
+                        price = product.price?.price,
+                        discount = product.price?.discount,
+                        priceWithDiscount = product.price?.priceWithDiscount,
+                        unit = product.price?.unit
+                    ),
+                    feedback = Feedback(
+                        count = product.feedback?.count,
+                        rating = product.feedback?.rating,
+                        ),
+                    tags = ArrayList(product.tags),
+                    available = product.available,
+                    description = product.description,
+                    info = ArrayList(product.info.map {
+                        Info(
+                            title = it.title,
+                            value = it.value
+                        )
+                    }),
+                    ingredients = product.ingredients
+                )
+            )
+        }
+        return  favoritesList
     }
 
 }

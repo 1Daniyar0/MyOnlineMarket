@@ -4,9 +4,12 @@ import com.example.data.data_models.UserDataModel
 import com.example.data.remote.ApiService
 import com.example.data.repositoryImpl.RepositoryImpl
 import com.example.domain.repository.Repository
+import com.example.domain.usecase.AddProductFavoritesDbUseCase
 import com.example.domain.usecase.AddUserToDatabaseUseCase
 import com.example.domain.usecase.CheckUserInDataBaseUseCase
+import com.example.domain.usecase.DeleteProductFavoritesDbUseCase
 import com.example.domain.usecase.GetListOfProductUseCase
+import com.example.domain.usecase.GetProductListFavoritesUseCase
 import com.example.myonlinemarket.constant.BASE_URL
 import com.example.myonlinemarket.viewModel.MarketViewModel
 import io.realm.kotlin.Realm
@@ -22,10 +25,13 @@ val useCaseModule = module{
     single { AddUserToDatabaseUseCase(get()) }
     single { CheckUserInDataBaseUseCase(get()) }
     single { GetListOfProductUseCase(get()) }
+    single { GetProductListFavoritesUseCase(get()) }
+    single { DeleteProductFavoritesDbUseCase(get()) }
+    single { AddProductFavoritesDbUseCase(get()) }
 }
 
 val viewModelModule = module {
-    viewModel {MarketViewModel(get(),get(),get())}
+    viewModel {MarketViewModel(get(),get(),get(),get(),get(),get(),)}
 }
 
 val netModule = module{

@@ -5,9 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.models.ListProduct
 import com.example.domain.models.User
+import com.example.domain.usecase.AddProductFavoritesDbUseCase
 import com.example.domain.usecase.AddUserToDatabaseUseCase
 import com.example.domain.usecase.CheckUserInDataBaseUseCase
+import com.example.domain.usecase.DeleteProductFavoritesDbUseCase
 import com.example.domain.usecase.GetListOfProductUseCase
+import com.example.domain.usecase.GetProductListFavoritesUseCase
 import com.example.myonlinemarket.constant.ADDING_EXCEPTION
 import com.example.myonlinemarket.constant.GET_API_EXCEPTION
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +20,10 @@ import kotlinx.coroutines.launch
 class MarketViewModel(
     private val addUserToDatabaseUseCase: AddUserToDatabaseUseCase,
     private val checkUserInDataBaseUseCase: CheckUserInDataBaseUseCase,
-    private val getListOfProductUseCase: GetListOfProductUseCase
+    private val getListOfProductUseCase: GetListOfProductUseCase,
+    private val getProductListFavoritesUseCase: GetProductListFavoritesUseCase,
+    private val deleteProductFavoritesDbUseCase: DeleteProductFavoritesDbUseCase,
+    private val addProductFavoritesDbUseCase: AddProductFavoritesDbUseCase
 ):ViewModel() {
     private val _userInDatabase: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val _currentScreen: MutableStateFlow<String> = MutableStateFlow("")

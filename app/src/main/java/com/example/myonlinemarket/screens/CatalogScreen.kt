@@ -214,11 +214,11 @@ fun ProductCatalog(
     val sortedProducts = remember(products,sortingOption,tagOption) {
         when(sortingOption){
             SortingOption.POPULARITY -> products.filter { it.tags.contains(tagOption) || tagOption == "All" }
-                .sortedWith(compareBy { it.feedback.rating }).reversed()
+                .sortedWith(compareBy { it.feedback?.rating }).reversed()
             SortingOption.PRICE_HIGH_TO_LOW -> products.filter { it.tags.contains(tagOption) || tagOption == "All" }
-                .sortedWith(compareBy { it.price.priceWithDiscount.toLong() }).reversed()
+                .sortedWith(compareBy { it.price?.priceWithDiscount?.toLong() }).reversed()
             SortingOption.PRICE_LOW_TO_HIGH -> products.filter { it.tags.contains(tagOption) || tagOption == "All" }
-                .sortedWith(compareBy { it.price.priceWithDiscount.toLong() })
+                .sortedWith(compareBy { it.price?.priceWithDiscount?.toLong() })
         }
     }
 
@@ -260,7 +260,7 @@ fun ProductItem(product: Product){
                 .width(24.dp)
         ){
             Text(
-                text = product.price.price,
+                text = product.price?.price!!,
                 style = MyOnlineMarketTheme.typography.elementText,
                 color = MyOnlineMarketTheme.colors.secondaryText,
                 modifier = Modifier
@@ -275,7 +275,7 @@ fun ProductItem(product: Product){
         }
         Row{
             Text(
-                text = product.price.priceWithDiscount + " " + product.price.unit,
+                text = product.price?.priceWithDiscount + " " + product.price?.unit,
                 style = MyOnlineMarketTheme.typography.secondTitle,
                 color = MyOnlineMarketTheme.colors.primaryText,
                 modifier = Modifier
@@ -290,7 +290,7 @@ fun ProductItem(product: Product){
                     .align(Alignment.CenterVertically)
             ){
                 Text(
-                    text = "-"+ product.price.discount + " %",
+                    text = "-"+ product.price?.discount + " %",
                     style = MyOnlineMarketTheme.typography.elementText,
                     color = Color.White,
                     modifier = Modifier
@@ -299,12 +299,12 @@ fun ProductItem(product: Product){
             }
         }
         Text(
-            text = product.title,
+            text = product.title!!,
             style = MyOnlineMarketTheme.typography.thirdTitle,
             color = MyOnlineMarketTheme.colors.primaryText,
             modifier = Modifier.padding(start = MyOnlineMarketTheme.shapes.paddingMini))
         Text(
-            text = product.subtitle,
+            text = product.subtitle!!,
             style = MyOnlineMarketTheme.typography.firstCaption,
             color = MyOnlineMarketTheme.colors.thirdText,
             modifier = Modifier
@@ -319,12 +319,12 @@ fun ProductItem(product: Product){
                     .align(Alignment.CenterVertically)
                     .size(13.dp))
             Text(
-                text = product.feedback.rating.toString(),
+                text = product.feedback?.rating.toString(),
                 style = MyOnlineMarketTheme.typography.elementText,
                 color = MyOnlineMarketTheme.colors.orangeColor,
                 modifier = Modifier.padding(horizontal = 3.dp))
             Text(
-                text = "(" + product.feedback.count.toString() + ")",
+                text = "(" + product.feedback?.count.toString() + ")",
                 style = MyOnlineMarketTheme.typography.elementText,
                 color = MyOnlineMarketTheme.colors.secondaryText)
         }

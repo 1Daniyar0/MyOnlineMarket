@@ -10,5 +10,5 @@ interface Repository{
     suspend fun getListOfProduct():ListProduct
     suspend fun addProductToDataBase(product: Product)
     suspend fun deleteProductFromDataBase(product: Product)
-    suspend fun getProductFromDataBase()
+    suspend fun getListProductFromDataBase():ArrayList<Product>
 }
