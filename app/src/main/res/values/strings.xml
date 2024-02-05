@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MyOnlineMarket</string>
+    <string name="sort_rating">По популярности</string>
+    <string name="sort_price_high">По возрастанию цены</string>
+    <string name="sort_price_low">По убыванию цены</string>
+    <string name="filters">Фильтры</string>
 </resources>

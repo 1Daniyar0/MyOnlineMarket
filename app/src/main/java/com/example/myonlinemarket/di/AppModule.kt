@@ -1,6 +1,6 @@
 package com.example.myonlinemarket.di
 
-import com.example.data.models.UserDataModel
+import com.example.data.data_models.UserDataModel
 import com.example.data.remote.ApiService
 import com.example.data.repositoryImpl.RepositoryImpl
 import com.example.domain.repository.Repository

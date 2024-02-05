@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Color
 val baseLightPalette = Colors(
     primaryBackground = Color(0xFFFFFFFF),
     secondaryBackground = Color(0xFFF8F8F8),
+    selectBackground = Color(0xFF52606D),
     primaryText = Color(0xFF000000),
     secondaryText = Color(0xFFA0A1A3),
     thirdText = Color(0xFF3E3E3E),
@@ -18,6 +19,7 @@ val baseLightPalette = Colors(
 val baseDarkPalette = Colors(
     primaryBackground = Color(0xFF23282D),
     secondaryBackground = Color(0xFF191E23),
+    selectBackground = Color(0xFF52606D),
     primaryText = Color(0xFFF2F4F5),
     secondaryText = Color(0xCC7A8A99),
     thirdText = Color(0xFFA0A1A3),

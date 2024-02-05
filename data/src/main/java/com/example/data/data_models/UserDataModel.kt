@@ -1,7 +1,6 @@
-package com.example.data.models
+package com.example.data.data_models
 
 import io.realm.kotlin.types.RealmObject
-import io.realm.kotlin.types.annotations.PrimaryKey
 
 class UserDataModel(): RealmObject {
     var name: String  = ""

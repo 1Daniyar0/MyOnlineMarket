@@ -5,6 +5,6 @@ import com.example.domain.repository.Repository
 
 class AddUserToDatabaseUseCase(private val repository: Repository) {
     suspend operator fun invoke(user: User){
-        repository.addUserToDatabase(user)
+        repository.addUserToDataBase(user)
     }
 }
